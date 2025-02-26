@@ -1,2 +1,2 @@
-# csi
+# CSI
 CSI: CRISM Spectral Interrogator

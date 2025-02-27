@@ -1,0 +1,33 @@
+
+
+pro resample_spectrum, input_wavelengths, input_flux, output_wavelengths, output_flux
+  ; Resample a spectrum to a new set of wavelengths
+  ;
+  ; input_wavelengths: 1D array of input wavelengths
+  ; input_flux: 1D array of input flux values
+  ; output_wavelengths: 1D array of output wavelengths
+  ; output_flux: Output array to store the resampled flux values
+  
+  n_input = n_elements(input_wavelengths)
+  n_output = n_elements(output_wavelengths)
+  
+  ; Perform linear interpolation for each output wavelength
+  for i = 0, n_output - 1 do begin
+    if output_wavelengths[i] lt input_wavelengths[0] then begin
+      output_flux[i] = input_flux[0]
+    endif else if output_wavelengths[i] gt input_wavelengths[n_input - 1] then begin
+      output_flux[i] = input_flux[n_input - 1]
+    endif else begin
+      ; Find the indices of the two input wavelengths closest to the output wavelength
+      index1 = max(where(output_wavelengths[i] ge input_wavelengths))
+      index2 = index1 + 1
+      
+      ; Calculate the weightings for linear interpolation
+      weight2 = (output_wavelengths[i] - input_wavelengths[index1]) / (input_wavelengths[index2] - input_wavelengths[index1])
+      weight1 = 1.0 - weight2
+      
+      ; Perform linear interpolation
+      output_flux[i] = weight1 * input_flux[index1] + weight2 * input_flux[index2]
+    endelse
+  endfor
+end

@@ -144,7 +144,7 @@ Citation metadata are also provided in [`CITATION.cff`](CITATION.cff). GitHub wi
 
 For scientific interpretation of the CRISM summary products and MICA spectral library, users should also consult:
 
-> Viviano-Beck, C. E., et al. (2014). Revised CRISM spectral parameters and summary products based on the currently detected mineral diversity on Mars. *Journal of Geophysical Research: Planets, 119*, 1403-1431. https://doi.org/10.1002/2014JE004627
+> Viviano, C. E., et al. (2014). Revised CRISM spectral parameters and summary products based on the currently detected mineral diversity on Mars. *Journal of Geophysical Research: Planets, 119*, 1403-1431. https://doi.org/10.1002/2014JE004627
 
 Users should additionally cite the appropriate CRISM instrument, data products, and external spectral libraries used in their analyses.
 

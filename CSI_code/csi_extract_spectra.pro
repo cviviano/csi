@@ -10,8 +10,6 @@ rowOFF=OFFinfo[1]
 cl=fix(ROIcol/2)
 rw=fix(ROIrow/2)
 
-;width=((*crism_image).arraysize)[2]
-;height=((*crism_image).arraysize)[3]
 width=(image_struct.arraysize)[2]
 height=(image_struct.arraysize)[3]
 

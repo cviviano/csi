@@ -5,7 +5,7 @@ PRO csi_save_event, ev
 
   if (strlen(savename) le 0) then begin ;First time saving the file
 
-    ofilename=info.image_ancillary_struct.file_path+info.image_ancillary_struct.crism_fname_abbrev +'_' + $
+    ofilename=info.image_ancillary_struct.crism_file_path+info.image_ancillary_struct.crism_fname_abbrev +'_' + $
       info.image_ancillary_struct.crism_counter+'_'+ info.image_ancillary_struct.crism_activity+info.image_ancillary_struct.crism_sensor+ $
       '_'+info.image_ancillary_struct.crism_file_type+info.image_ancillary_struct.crism_version+'_CSItable'+'.csv'
 

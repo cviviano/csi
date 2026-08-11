@@ -1,0 +1,353 @@
+           R770         = 0.77-micron reflectance (higher value more dusty 
+                          or icy)
+
+           RBR          = Red/blue ratio (higher value indicates more 
+                          nanophase iron oxide or sky illumination)
+
+           BD530_2      = 0.53-micron band depth (higher value has more 
+                          fine-grained crystalline hematite)
+
+           SH600_2      = 0.6-micron shoulder height (select ferric 
+                          minerals esp. hematite, goethite, or 
+                          compacted texture)
+
+           SH770        = 0.77-micron shoulder height (select ferric 
+                          minerals, less sensitive to LCP than SH600_2)
+
+           BD640_2      = 0.64-micron band depth (select ferric minerals,
+                          esp. maghemite, but obscured by VNIR detector 
+                          artifact)
+
+           BD860_2      = 0.86-micron band depth (select crystalline 
+                          ferric minerals, esp. hematite)
+
+           BD920_2      = 0.92-micron band depth (crystalline ferric minerals 
+                          and low-Ca pyroxene, or LCP)
+
+           RPEAK1       = Reflectance peak 1 near 0.77 microns (<0.75 
+                          suggests olivine, 0.75 pyroxene, >0.8 dust)
+
+           BDI1000VIS   = 1-micron integrated band depth; VNIR wavelengths
+                          (olivine, pyroxene, or Fe-bearing glass)
+
+           BDI1000IR    = 1-micron integrated band depth; IR wavelengths
+                          (crystalline Fe2+ silicates)
+
+           R1330        = IR albedo 
+
+           BD1300       = 1.3-micron absorption associated with Fe2+ 
+                          substitution in plagioclase
+
+           OLINDEX3     = Broad absorption centered at 1 micron 
+                          (olivine strongly >0, also Fe-phyllosilicate)
+
+           LCPINDEX2    = Broad absorption centered at 1.81 micron
+                          (pyroxene is strongly +; favors LCP)
+
+           HCPINDEX2    = Broad absorption centered at 2.12 microns
+                          (pyroxene is strongly +; favors HCP)
+
+           VAR          = 1.0-2.3-micron spectral variance
+
+           ISLOPE1      = Spectral slope 1 (from 1.185 to 2.530 microns; 
+                          ferric coating on dark rock)
+
+           BD1400       = 1.4-micron H2O and -OH band depth
+                          (hydrated or hydroxylated minerals)
+
+           BD1435       = 1.435-micron CO2 ice band depth
+
+           BD1500_2     = 1.5-micron H2O ice band depth
+
+           ICER1_2      = CO2 and H2O ice band depth ratio
+
+           BD1750_2     = 1.75-micron H2O band depth (gypsum or alunite)
+
+           BD1900_2     = 1.9-micron H2O band depth (hydrated minerals 
+                          except monohydrated sulfates)
+
+           BD1900R2     = 1.9-micron H2O band depth (hydrated minerals 
+                          except monohydrated sulfates)
+
+           BDI2000      = 2-micron integrated band depth (pyroxene)
+
+           BD2100_2     = 2.1-micron shifted H2O band depth 
+                          (monohydrated sulfates)
+
+           BD2165       = 2.165-micron Al-OH band depth 
+                          (pyrophyllite, kaolinite-group minerals)
+
+           BD2190       = 2.190-micron Al-OH band depth
+                          (beidellite, allophane, imogolite)
+
+           MIN2200      = 2.16-micron Si-OH band depth and 2.21-micron 
+                          H-bound Si-OH band depth (doublet; kaolinite)
+
+           BD2210_2     = 2.21-micron Al-OH band depth (Al-OH minerals)
+
+           D2200        = 2.2-micron dropoff (Al-OH minerals)
+
+           BD2230       = 2.23-micron band depth 
+                          (hydroxylated ferric sulfate)
+
+           BD2250       = 2.25-micron broad Al-OH and Si-OH band depth
+                          (opal, Al-OH minerals)
+
+           MIN2250      = 2.21-micron Si-OH band depth and 2.26-micron 
+                          H-bound Si-OH band depth (opal)
+
+           BD2265       = 2.265-micron band depth (jarosite, gibbsite,
+                          acid-leached nontronite)
+
+           BD2290       = 2.29-micron Mg,Fe-OH band depth / 2.292-micron 
+                          CO2 ice band depth (Mg-OH and Fe-OH minerals,
+                          Mg carbonate, and CO2 ice)
+
+           D2300        = 2.3-micron dropoff (hydroxylated Fe,Mg 
+                          silicates strongly >0)
+
+           BD2355       = 2.35-micron band depth (chlorite, prehnite, 
+                          pumpellyite, carbonate, serpentine)
+
+           SINDEX2      = Inverse lever rule to detect convexity at 2.29 
+                          microns due to 2.1- and 2.4-micron absorptions
+                          (hydrated sulfates strongly >0)
+
+           ICER2_2      = 2.7-micron CO2 ice band
+
+           MIN2295_2480 = Mg Carbonate overtone band depth and metal-OH 
+                          band
+
+           MIN2345_2537 = Ca/Fe Carbonate overtone band depth and 
+                          metal-OH band
+
+           BD2500_2     = Mg Carbonate overtone band depth
+
+           BD3000       = 3-micron H2O band depth (adsorbed and bound
+                          H2O and ice)
+
+           BD3100       = 3.1-micron H2O ice band depth
+
+           BD3200       = 3.2-micron CO2 ice band depth
+
+           BD3400_2     = 3.4-micron carbonate band depth
+
+           CINDEX2      = Inverse lever rule to detect convexity at 3.6 
+                          micron due to 3.4- and 3.8-micron 
+                          carbonate absorptions
+
+           R440         = 0.44-micron reflectance
+
+           R530         = 0.53-micron reflectance
+
+           R600         = 0.60-micron reflectance
+
+           IRR1         = IR ratio 1 (R880/R997; aphelion ice clouds >1,
+                          seasonal ice clouds and dust <1))
+
+           R1080        = 1.08-micron reflectance
+
+           R1506        = 1.51-micron reflectance
+
+           R2529        = 2.53-micron reflectance
+
+           BD2600       = 2.6-micron H2O band depth
+
+           IRR2         = IR ratio 2 (R2530/R2210; aphelion ice clouds 
+                          vs. seasonal ice clouds or dust)
+
+           IRR3         = IR ratio 3 (R3500/R3390; aphelion ice clouds 
+                          vs. seasonal ice clouds or dust)
+
+           R3920        = 3.92-micron reflectance, evaluated from the
+                          5 'good bands' closest in wavelength to 
+                          3920 nm
+
+
+          Abbreviation = TRU
+          Name         = True color
+          R Component  = R600
+          G Component  = R530
+          B Component  = R440
+          Additional description: An enhanced natural color representation 
+          of the scene composed of spectral channels across the visible 
+          spectrum. Contrast greater than the human eye would see.
+
+          Abbreviation = VNA
+          Name = VNIR albedo
+          R Component = R770
+          G Component = R770
+          B Component = R770
+          Additional description: Reflectance at 770 nm as a proxy for VNIR 
+          albedo and may be used to correlate spectral variations with 
+          morphology. 
+
+          Abbreviation = FEM
+          Name = Fe Minerals
+          R Component = BD530_2
+          G Component = SH600_2
+          B Component = BDI1000VIS
+          Additional description: Mafic minerals appear blue, nanophase 
+          ferric oxides red, and dust-coated mafic rocks or lithified 
+          dust yellow/green.
+
+          Abbreviation = FM2
+          Name = Fe minerals, v2
+          R Component = BD530_2
+          G Component = BD920_2
+          B Component = BDI1000VIS
+          Additional description: Mafic minerals appear blue, crystalline
+          hematite green or yellow, and nanophase ferric oxides red.
+
+          Abbreviation = TAN
+          Name = Tandem
+          R Component = R2529
+          G Component = IRA
+          B Component = R770
+          Additional description: Enhanced visible to infrared false color 
+          representation of the scene, incorporating spectral data from 
+          both (VNIR and IR) detectors.
+
+          Abbreviation = IRA
+          Name = IR albedo
+          R Component = R1300
+          G Component = R1300
+          B Component = R1300
+          Additional description: Reflectnace at 1330 nm as a proxy for IR 
+          albedo and may be used to correlate spectral variations with 
+          morphology.
+
+          Abbreviation = FAL
+          Name = False color
+          R Component = R2529
+          G Component = R1506
+          B Component = R1080
+          Additional description: Red to orange coloration is 
+          typically characteristic of olivine-rich material, blue/green 
+          colors are often indicative of clay mineralogy, green colors 
+          may indicate carbonate, and gray/brown colors often indicate 
+          basaltic material.
+
+          Abbreviation = MAF
+          Name = Mafic mineralogy
+          R Component = OLINDEX3
+          G Component = LCPINDEX2
+          B Component = HCPINDEX2
+          Additional description: Olivine and Fe-phyllosilicate share 
+          a 1000-1700 nm bowl-shaped absorption and will appear red in 
+          the MAF browse product.  Low- and high-Ca pyroxene display 
+          an additional ~2000-nm absorption and appear green/cyan and 
+          blue/magenta respectively.
+
+          Abbreviation = HYD
+          Name = Hydrated mineralogy
+          R Component = SINDEX2
+          G Component = BD2100_2
+          B Component = BD1900_2
+          Additional description: Polyhydrated sulfates have strong 
+          1900 nm and 2400 nm absorption bands, and thus appear magenta 
+          in the HYD browse product. Monohydrated sulfates have a 
+          strong 2100 nm absorption and a weak 2400 nm absorption band, 
+          and thus appear yellow/green in the HYD browse product.  
+          Blue colors are indicative of other hydrated minerals (such as
+          clays, glass, carbonate, or zeolite).
+
+          Abbreviation = PHY
+          Name = Phyllosilicates
+          R Component = D2300
+          G Component = D2200
+          B Component = BD1900r2
+          Additional description: Fe/Mg-OH bearing minerals 
+          (e.g., Fe/Mg-phyllosilicate) will appear red, or magenta 
+          (when hydrated). Al/Si-OH bearing minerals (e.g., 
+          Al-phyllosilicates or hydrated silica) will appear green, 
+          or cyan (when hydrated). Blue colors are indicative of other 
+          hydrated minerals (such as sulfates, glass, carbonate, or 
+          water ice).
+
+          Abbreviation = PFM
+          Name = Phyllosilicates with Fe and Mg
+          R Component = BD2355
+          G Component = D2300
+          B Component = BD2290
+          Additional description: Red/yellow colors indicate the 
+          presence of prehnite, chlorite, epidote, or Ca/Fe carbonate,
+          while cyan colors indicate the presence of Fe/Mg-smectites 
+          or Mg-carbonate.
+
+          Abbreviation = PAL
+          Name = Phyllosilicates with Al
+          R Component = BD2210_2
+          G Component = BD2190
+          B Component = BD2165
+          Additional description: Red/yellow colors indicate the 
+          presence of Al-smectites or hydrated silica, cyan colors may 
+          indicate the alunite, and light/white colors indicate the 
+          presence of kaolinite group minerals.
+
+          Abbreviation = HYS
+          Name = Hydrated silica
+          R Component = MIN2250
+          G Component = BD2250
+          B Component = BD1900r2
+          Additional information: Light red/yellow colors indicate 
+          the presence of hydrated silica, whereas cyan colors indicate 
+          Al-OH minerals.  Additionally, jarosite will appear yellow. 
+          Blue colors are indicative of other hydrated minerals (such
+          as sulfates, clays, glass, carbonate, or water ice).
+
+          Abbreviation = ICE
+          Name = Ices
+          R Component = BD1900_2
+          G Component = BD1500_2
+          B Component = BD1435
+          Additional information: CO2 frost or ice displays a sharp 
+          1435-nm absorption and thus appears blue in the ICE browse 
+          product. Water ice or frost has a strong 1500 nm absorption and 
+          thus appears green in the ICE browse product.  Red colors are 
+          indicative of hydrated minerals (such as sulfates, clays, 
+          glass, carbonate, or water ice).
+
+          Abbreviation = IC2
+          Name = Ices, v2
+          R Component = R3920
+          G Component = BD1500_2
+          B Component = BD1435
+          Additional information: CO2 frost or ice displays a sharp 
+          1435-nm absorption and thus appears blue in the IC2 browse 
+          product. Water ice or frost has a strong 1500 nm absorption and 
+          thus appears green in the IC2 browse product.  The 3920-nm 
+          spectral channel is a discriminator for icy vs. ice-free material 
+          with ices having a lower solar reflected and thermal emission 
+          radiance at this wavelength, so ice-free material appears red.
+
+          Abbreviation = CHL
+          Name = Chloride
+          R Component = ISLOPE
+          G Component = BD3000
+          B Component = IRR2
+          Additional information: Martian chloride deposits have a 
+          relatively positive near-infrared spectral slope and are 
+          comparatively desiccated, so chlorides appear blue in the 
+          CHL browse product. Yellow/green colors are indicative of 
+          hydrated minerals, especially phyllosilicates.
+
+          Abbreviation = CAR
+          Name = Carbonates
+          R Component = D2300
+          G Component = BD2500H2
+          B Component = BD1900_2
+          Additional information: Blueish- or yellowish-white colors 
+          indicate Mg-carbonate, while red/magenta colors indicate 
+          Fe/Mg-phyllosilicate. Blue colors are indicative of other 
+          hydrated minerals (such as sulfates, clays, glass, or 
+          carbonate).
+
+          Abbreviation = CR2
+          Name = Carbonates, v2
+          R Component = MIN2295_2480
+          G Component = MIN2345_2537
+          B Component = CINDEX2
+          Additional information: Red/magenta colors indicate 
+          Mg-carbonates, while green/cyan colors indicate 
+          Fe/Ca-carbonates.

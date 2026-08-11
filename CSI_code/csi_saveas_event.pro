@@ -3,7 +3,7 @@ PRO csi_saveas_event, ev
   info=*infoptr
   
   ;Pick the filename
-  ofilename=info.image_ancillary_struct.crism_file_path+info.image_ancillary_struct.crism_fname_abbrev +'_' + $
+  ofilename=strtrim(info.image_ancillary_struct.crism_fname_abbrev) +'_' + $
     info.image_ancillary_struct.crism_counter+'_'+ info.image_ancillary_struct.crism_activity+info.image_ancillary_struct.crism_sensor+ $
     '_'+info.image_ancillary_struct.crism_file_type+info.image_ancillary_struct.crism_version+'_CSItable'+'.csv'
 
@@ -15,6 +15,7 @@ PRO csi_saveas_event, ev
 
   ;Write the CSI table
   csi_formatted_table=csi_format_table(info.d0)
+  
   csi_write_table, csi_formatted_table, savename
 
   info.savename=savename

@@ -330,27 +330,32 @@ print, 'data structures built'
 ;6) READ IN LIBRARY FILES AND DETERMINE WAVELENGTH TABLES
 ;*************************************************
 ;THIS WILL NEED TO BE EDITED BASED ON THE SETUP  -
-MICA_library_file='/project/crism/users/viviace1/crismidl/CSI_program/MICA_library_file.sli'
-MICA_data=csi_read_resample_sli(image_struct.spectral_sampling, image_struct.units, MICA_library_file)
 
-LAB_library_file='/project/crism/users/viviace1/crismidl/CSI_program/LAB_library_file.sli'
-LAB_data=csi_read_resample_sli(image_struct.spectral_sampling, image_struct.units, LAB_library_file)
 
-case image_struct.spectral_sampling of
-  0: wvt_file='/project/crism/users/viviace1/TaylorNewRedo3/wvt_subset_newsub_MSPresamp_FORCSI.txt' ; multispectral (MSP)
-  1: wvt_file='/project/crism/users/viviace1/TaylorNewRedo3/wvt_subset_newsub.txt' ; hyperspectral (FRT,HRL)
-  2: wvt_file='/project/crism/users/viviace1/TaylorNewRedo3/wvt_subset_newsub_HSPresamp_FORCSI.txt' ; 'hyperspectral' (HSP sampling)
-  else: print, 'Not a valid spectral sampling type.'
-endcase
+home_dir=file_dirname(routine_dir())+path_sep()
 
-rows=file_lines(wvt_file)  ; read in bad bands for MICA library
-openr, lun, wvt_file, /get_lun
-;struct3=fltarr(1)
-wvt_subset=replicate(fltarr(1), rows)
-readf, lun, wvt_subset, format='(f)'
-close, lun
-free_lun, lun
+;home_dir='/project/crism/users/viviace1/crismidl/CSI_program/CSI_git/csi/'
 
+MICA_library_file=home_dir+'CSI_library/MICA_library_file.sli'
+MICA_data=csi_read_resample_sli(image_struct.spectral_sampling, image_struct.units, MICA_library_file, home_dir)
+
+LAB_library_file=home_dir+'CSI_library/LAB_library_file.sli'
+LAB_data=csi_read_resample_sli(image_struct.spectral_sampling, image_struct.units, LAB_library_file, home_dir)
+;stop
+;case image_struct.spectral_sampling of
+;  0: wvt_file='/project/crism/users/viviace1/TaylorNewRedo3/wvt_subset_newsub_MSPresamp_FORCSI.txt' ; multispectral (MSP)
+;  1: wvt_file='/project/crism/users/viviace1/TaylorNewRedo3/wvt_subset_newsub.txt' ; hyperspectral (FRT,HRL)
+;  2: wvt_file='/project/crism/users/viviace1/TaylorNewRedo3/wvt_subset_newsub_HSPresamp_FORCSI.txt' ; 'hyperspectral' (HSP sampling)
+;  else: print, 'Not a valid spectral sampling type.'
+;endcase
+
+;rows=file_lines(wvt_file)  ; read in bad bands for MICA library
+;openr, lun, wvt_file, /get_lun
+;;struct3=fltarr(1)
+;wvt_subset=replicate(fltarr(1), rows)
+;readf, lun, wvt_subset, format='(f)'
+;close, lun
+;free_lun, lun
 
 ;7) CALL WIDGET PROGRAM
 ;*************************************************
@@ -365,7 +370,7 @@ free_lun, lun
    
   
   csi_main_widget_build, image_ancillary_struct=image_ancillary_struct, csi_table_struct=csi_table_struct, multsz=multsz, infoholder=infoholder, $
-    image_struct=image_struct,param_struct=param_struct,browse_struct=browse_struct, ddr_struct=ddr_struct, LAB_data=LAB_data, MICA_data=MICA_data, wvt_subset=wvt_subset  ;, img_str=image_struct
+    image_struct=image_struct,param_struct=param_struct,browse_struct=browse_struct, ddr_struct=ddr_struct, LAB_data=LAB_data, MICA_data=MICA_data, wvt_subset=Lab_data.wvt  ;, img_str=image_struct
      
   device, decomposed=1
   

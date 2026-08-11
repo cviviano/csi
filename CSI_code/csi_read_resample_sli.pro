@@ -1,17 +1,17 @@
-function csi_read_resample_sli, spectral_sampling, units, sli_file
+function csi_read_resample_sli, spectral_sampling, units, sli_file, home_dir
 
 data=csi_read_envi_image(sli_file, header=library_hdr)
 spectra_names=strtrim(*(library_hdr.spectra_names), 1)
 
 case spectral_sampling of
   0: begin ; multispectral (MSP)
-    wvt_subset=csi_determine_wavetable('MSP')
+    wvt_subset=csi_determine_wavetable('MSP', home_dir)
   end
   1: begin ; hyperspectral (FRT,HRL)
-    wvt_subset=csi_determine_wavetable('FRT')
+    wvt_subset=csi_determine_wavetable('FRT', home_dir)
   end
   2: begin ; 'hyperspectral' (HSP sampling)
-    wvt_subset=csi_determine_wavetable('HSP')
+    wvt_subset=csi_determine_wavetable('HSP', home_dir)
   end
 endcase
 
@@ -32,6 +32,6 @@ endif else begin
  endif
 endelse
 
-return, {spectra: data, wvt:wl, names: spectra_names}
+return, {spectra: library_resampled, wvt:wl, names: spectra_names}
 
 end

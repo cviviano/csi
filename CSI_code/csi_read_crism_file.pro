@@ -30,7 +30,7 @@ function csi_read_crism_file, image_fname_struct, image_ancillary_struct
     if ptr_valid(hdrS.wavelength_units) then unitsS=*(hdrS.wavelength_units) else unitsS=hdrS.wavelength_units
     arraysize=size(imageS)
     undefine, hdrS
-    imageS=transpose(imageS, [1,2,0])
+    ;imageS=transpose(imageS, [1,2,0])
   endif
 
   if (image_fname_struct.file_type eq 1) or (image_fname_struct.file_type eq 3) then begin; L
@@ -42,7 +42,7 @@ function csi_read_crism_file, image_fname_struct, image_ancillary_struct
     if ptr_valid(hdrL.wavelength_units) then unitsL=*(hdrL.wavelength_units) else unitsL=hdrL.wavelength_units
     arraysize=size(imageL)
     undefine, hdrL
-    imageL=transpose(imageL, [1,2,0])
+    ;imageL=transpose(imageL, [1,2,0])
 
     if (image_fname_struct.file_type eq 3) then begin
       imageSL=[[[imageS]],[[imageL]]]

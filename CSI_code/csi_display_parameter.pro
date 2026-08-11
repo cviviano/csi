@@ -96,6 +96,7 @@ PRO csi_display_parameter, drawID, red, green, blue, param_struct=param_struct, 
       e=colON+cl-1
       
       btsimageR[d:e,b:c]=long((strsplit(plotroi[i].color, /extract))[0])
+        if (size(long((strsplit(plotroi[i].color, /extract)))))[1] lt 2 then stop
       btsimageG[d:e,b:c]=long((strsplit(plotroi[i].color, /extract))[1])
       btsimageB[d:e,b:c]=long((strsplit(plotroi[i].color, /extract))[2])
     endfor

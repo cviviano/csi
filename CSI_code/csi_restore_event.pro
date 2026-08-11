@@ -15,8 +15,8 @@ PRO csi_restore_event, ev
     restorename= DIALOG_PICKFILE(path=info.image_ancillary_struct.crism_file_path, title="Save Table As...", filter=['*.csv'])
   endelse
 
-  d1=info.d_common
-
+  d1=info.csi_table_struct
+   
   arrayout=read_csv(restorename, count=nrows, delimiter=',')  ;Read in CSI file: get # of rows
 
   tnames = tag_names(d1)

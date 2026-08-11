@@ -1,33 +1,50 @@
+;...................................................................
+; Set the dominant phase color
+if n_elements(sublibindex) gt 1 then begin
 
+  ; default choices in case the user cancels
+  dominant = names[0]
+  secondary = names[1]
 
-pro resample_spectrum, input_wavelengths, input_flux, output_wavelengths, output_flux
-  ; Resample a spectrum to a new set of wavelengths
-  ;
-  ; input_wavelengths: 1D array of input wavelengths
-  ; input_flux: 1D array of input flux values
-  ; output_wavelengths: 1D array of output wavelengths
-  ; output_flux: Output array to store the resampled flux values
-  
-  n_input = n_elements(input_wavelengths)
-  n_output = n_elements(output_wavelengths)
-  
-  ; Perform linear interpolation for each output wavelength
-  for i = 0, n_output - 1 do begin
-    if output_wavelengths[i] lt input_wavelengths[0] then begin
-      output_flux[i] = input_flux[0]
-    endif else if output_wavelengths[i] gt input_wavelengths[n_input - 1] then begin
-      output_flux[i] = input_flux[n_input - 1]
-    endif else begin
-      ; Find the indices of the two input wavelengths closest to the output wavelength
-      index1 = max(where(output_wavelengths[i] ge input_wavelengths))
-      index2 = index1 + 1
-      
-      ; Calculate the weightings for linear interpolation
-      weight2 = (output_wavelengths[i] - input_wavelengths[index1]) / (input_wavelengths[index2] - input_wavelengths[index1])
-      weight1 = 1.0 - weight2
-      
-      ; Perform linear interpolation
-      output_flux[i] = weight1 * input_flux[index1] + weight2 * input_flux[index2]
-    endelse
-  endfor
-end
+  WIDGET_CONTROL, ev.top, map=0
+  csi_pick_phase_priority, names, dominant, secondary, accepted=accept
+  WIDGET_CONTROL, ev.top, map=1
+
+  if accept eq 1 then begin
+    colindex = where(dominant eq info.MICA_data.names)
+    colindex2 = where(secondary eq info.MICA_data.names)
+
+    d1.color = ' ' + strtrim(string(long(info.colorindex[colindex,0])),1) + $
+               ' ' + strtrim(string(long(info.colorindex[colindex,1])),1) + $
+               ' ' + strtrim(string(long(info.colorindex[colindex,2])),1)
+
+    d1.colorline = ' ' + strtrim(string(long(info.colorindex[colindex2,0])),1) + $
+                   ' ' + strtrim(string(long(info.colorindex[colindex2,1])),1) + $
+                   ' ' + strtrim(string(long(info.colorindex[colindex2,2])),1)
+  endif else begin
+    ; user cancelled: keep the defaults
+    colindex = where(dominant eq info.MICA_data.names)
+    colindex2 = where(secondary eq info.MICA_data.names)
+
+    d1.color = ' ' + strtrim(string(long(info.colorindex[colindex,0])),1) + $
+               ' ' + strtrim(string(long(info.colorindex[colindex,1])),1) + $
+               ' ' + strtrim(string(long(info.colorindex[colindex,2])),1)
+
+    d1.colorline = ' ' + strtrim(string(long(info.colorindex[colindex2,0])),1) + $
+                   ' ' + strtrim(string(long(info.colorindex[colindex2,1])),1) + $
+                   ' ' + strtrim(string(long(info.colorindex[colindex2,2])),1)
+  endelse
+
+endif else begin
+  if n_elements(sublibindex) gt 0 then begin
+    d1.color=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+$
+             strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+$
+             strtrim(string(long(info.colorindex[sublibindex,2])),1)
+    d1.colorline=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+$
+                 strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+$
+                 strtrim(string(long(info.colorindex[sublibindex,2])),1)
+  endif else begin
+    d1.color=' 0 0 0'
+    d1.colorline=' 0 0 0'
+  endelse
+endelse

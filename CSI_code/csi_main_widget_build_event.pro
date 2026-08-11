@@ -9,11 +9,8 @@ PRO csi_main_widget_build_event, ev
 ;******************************************************************                     
 ;1) IMPORT INFO STRUCTURE
 info=*infoptr
-print, 'event'
           range=info.range
           csi_table_struct=info.csi_table_struct
-          ;image_struct=*(info.img_str)
-       ;   image_struct=*image_struct
           image_struct=info.image_struct
           browse_struct=info.browse_struct
           param_struct=info.param_struct
@@ -196,7 +193,6 @@ print, 'event'
       
 ;      extractspectraptr=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, image_struct.wvs, avgtyp, info.img_str); image_struct.image)
 
-
       extractspectraptr=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, image_struct.wvs, avgtyp, image_struct, csi_image); image_struct.image)
       extr=*extractspectraptr
       
@@ -226,10 +222,7 @@ print, 'event'
         
       endif
       
-   ;   xmoreoff=info.image_struct.arraysize[0]+10
-   ;   ymoreoff=2*info.image_struct.arraysize[1]+80
-      
-      ;plot up data in gui
+   ;plot up data in gui
       
       drawIDratio=info.drawIDratio
       WSET, drawIDratio
@@ -330,8 +323,8 @@ print, 'event'
 
         ymax=max(yspectratio_sub)
         
-        holder=yspectratio_sub/ymax
-        resizespectratio_sub=spectratio_sub/ymax
+        holder=yspectratio_sub/float(ymax)
+        resizespectratio_sub=spectratio_sub/float(ymax)
         ymin=min(holder)
         
         resizespectratio_sub=1-((1./(1.-ymin))*(1-resizespectratio_sub))
@@ -364,8 +357,8 @@ print, 'event'
             labratio=info.LAB_data.spectra[*, sublibindex[i]]
             ylabratio=labratio[value_locate(info.Lab_data.wvt, lxranges[0]):value_locate(info.Lab_data.wvt, lxranges[1])]
             ymax=max(ylabratio)
-            holder=ylabratio/ymax
-            resizelabratio=labratio/ymax
+            holder=ylabratio/float(ymax)
+            resizelabratio=labratio/float(ymax)
             ymin=min(holder)
             device,decomposed=1
             resizelabratio=1-((1./(1.-ymin))*(1-resizelabratio))
@@ -388,16 +381,19 @@ print, 'event'
             micaratio_sub=micaratio_sub[nanindex1]
             mica_wvt_subset=info.wvt_subset[nanindex1]
            ; ymicaratio=micaratio_sub[value_locate(info.wvt_subset, xranges[0]):value_locate(info.wvt_subset, xranges[1])]
-            ymicaratio=micaratio_sub[value_locate(micaratio_sub, xranges[0]):value_locate(micaratio_sub, xranges[1])]
+            ymicaratio=micaratio_sub[value_locate(mica_wvt_subset, xranges[0]):value_locate(mica_wvt_subset, xranges[1])]
+            
+           ; ymicaratio=micaratio_sub[value_locate(info.MICA_data.wvt, xranges[0]):value_locate(info.MICA_data.wvt, xranges[1])]
             ymax=max(ymicaratio)
             
-            holder=ymicaratio/ymax
-            resizemicaratio=micaratio_sub/ymax
+            holder=ymicaratio/float(ymax)
+            resizemicaratio=micaratio_sub/float(ymax)
             ymin=min(holder)
             device,decomposed=1
             resizemicaratio=1-((1./(1.-ymin))*(1-resizemicaratio))
             color_hex = color_rgb_hex(info.colorindex[sublibindex[i],*])
             oplot, mica_wvt_subset, resizemicaratio, color=color_hex, line=0, thick=2
+            
           endfor
           
         endif
@@ -487,47 +483,49 @@ print, 'event'
   endif
   
   if (n_elements(isit) gt 0) and (info.colON gt 0) and (info.colOFF gt 0) then begin
-    if isit eq 'plot' then begin
-      device, decomposed=1
+   ; if isit eq 'plot' then begin
+   ;   device, decomposed=1
       
-      nameS1='S1'+':['+strtrim(string(fix(float(info.colON))),2)+','+strtrim(string(fix(float(info.rowON))),2)+']'
-      nameS2='S2'+':['+strtrim(string(fix(float(info.colOFF))),2)+','+strtrim(string(fix(float(info.rowOFF))),2)+']'
-      nameRatio='S1/S2'+':('+strtrim(info.roi_col,2)+'x'+strtrim(info.roi_row,2)+' ROI)'
+   ;   nameS1='S1'+':['+strtrim(string(fix(float(info.colON))),2)+','+strtrim(string(fix(float(info.rowON))),2)+']'
+   ;   nameS2='S2'+':['+strtrim(string(fix(float(info.colOFF))),2)+','+strtrim(string(fix(float(info.rowOFF))),2)+']'
+   ;   nameRatio='S1/S2'+':('+strtrim(info.roi_col,2)+'x'+strtrim(info.roi_row,2)+' ROI)'
       
-      envi_plot_data, image_struct.wvs, [[specton],[spectoff],[specton/spectoff]], plot_names=[nameS1,nameS2,nameRatio], bbl=image_struct.bbl, plot_colors=[2, 3, 0], $
-        xtitle='wavelength (nm)', ytitle='CRISM I/F', plot_title=info.image_ancillary_struct.crism_fname_abbrev; , base=wwin
-    endif
+   ;   envi_plot_data, image_struct.wvs, [[specton],[spectoff],[specton/spectoff]], plot_names=[nameS1,nameS2,nameRatio], bbl=image_struct.bbl, plot_colors=[2, 3, 0], $
+   ;     xtitle='wavelength (nm)', ytitle='CRISM I/F', plot_title=info.image_ancillary_struct.crism_fname_abbrev; , base=wwin
+   ; endif
     
-    if isit eq 'libplot' then begin
-      if n_elements(sublibindex) gt 0 then begin
-        device, decomposed=1
+   ; if isit eq 'libplot' then begin
+   ;   if n_elements(sublibindex) gt 0 then begin
+   ;     device, decomposed=1
         
-        nameRatio='S1/S2'+' s1:['+strtrim(info.colON,2)+','+strtrim(info.rowON,2)+']'+',s2:['+strtrim(info.colOFF,2)+ $
-          ','+strtrim(info.rowOFF,2)+']'+':('+strtrim(info.roi_col,2)+'x'+strtrim(info.roi_row,2)+' ROI)'
+   ;     nameRatio='S1/S2'+' s1:['+strtrim(info.colON,2)+','+strtrim(info.rowON,2)+']'+',s2:['+strtrim(info.colOFF,2)+ $
+   ;       ','+strtrim(info.rowOFF,2)+']'+':('+strtrim(info.roi_col,2)+'x'+strtrim(info.roi_row,2)+' ROI)'
           
-        labratio_array=info.LAB_data.spectra[*,sublibindex]
-        micaratio_array=info.MICA_data.spectra[*,sublibindex]
+   ;     labratio_array=info.LAB_data.spectra[*,sublibindex]
+   ;     micaratio_array=info.MICA_data.spectra[*,sublibindex]
         
-        nameslab=info.LAB_spectra_names[sublibindex]
-        namesmica=info.MICA_data.names[sublibindex]
+   ;     nameslab=info.LAB_spectra.names[sublibindex]
+   ;     namesmica=info.MICA_data.names[sublibindex]
 
-        bbl_lab=(intarr(n_elements(info.Lab_data.wvt)))+1  ;bad lab band - last band
-        bbl_lab[n_elements(info.Lab_data.wvt)-1]=0
+   ;     bbl_lab=(intarr(n_elements(info.Lab_data.wvt)))+1  ;bad lab band - last band
+   ;     bbl_lab[n_elements(info.Lab_data.wvt)-1]=0
         
-        envi_plot_data, info.Lab_data.wvt, labratio_array, plot_names=[nameslab], plot_colors=sublibindex+2, $
-          xtitle='wavelength (nm)', ytitle='CRISM I/F (MICA) and Laboratory Reflectance', plot_title=info.image_ancillary_struct.crism_fname_abbrev, base=base, bbl=bbl_lab
+   ;     envi_plot_data, info.Lab_data.wvt, labratio_array, plot_names=[nameslab], plot_colors=sublibindex+2, $
+   ;       xtitle='wavelength (nm)', ytitle='CRISM I/F (MICA) and Laboratory Reflectance', plot_title=info.image_ancillary_struct.crism_fname_abbrev, base=base, bbl=bbl_lab
           
-        ;bad MICA bad - indiv.
-        for i=0, ((size(micaratio_array, /n_elements))/((size(micaratio_array))[1]))-1 do begin
-          bbl_mica=image_struct.bbl
-          badval=where(micaratio_array[*,i] gt 100)
-          bbl_mica[badval]=0
-          wlliblab2=info.Lab_data.wvt
-          sp_import, base, wlliblab2, micaratio_array[*,i], name=['MICA_'+namesmica[i]], color=[(sublibindex[i]+2)],bbl=bbl_mica
-        endfor
+   ;     ;bad MICA bad - indiv.
+   ;     for i=0, ((size(micaratio_array, /n_elements))/((size(micaratio_array))[1]))-1 do begin
+   ;       bbl_mica=image_struct.bbl
+   ;       badval=where(micaratio_array[*,i] gt 100)
+   ;       bbl_mica[badval]=0
+   ;      ; wlliblab2=info.Lab_data.wvt
+   ;      ; sp_import, base, wlliblab2, micaratio_array[*,i], name=['MICA_'+namesmica[i]], color=[(sublibindex[i]+2)],bbl=bbl_mica
+   ;      wllibmica2=info.MICA_data.wvt
+   ;      sp_import, base, wllibmica2, micaratio_array[*,i], name=['MICA_'+namesmica[i]], color=[(sublibindex[i]+2)],bbl=bbl_mica
+   ;     endfor
         
-      endif
-    endif
+   ;   endif
+   ; endif
   endif
   ;...................................................................
   ;Extract out data
@@ -537,13 +535,9 @@ print, 'event'
       if (info.colON gt 0) and (info.colOFF gt 0) then begin
         avgtyp2='mean'
         
-        ;extractddrlat=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, avgtyp2, info.ddr_struct.ddr[3,*,*])
-        ;extractddrlon=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, avgtyp, info.ddr_struct.ddr[4,*,*])
-        ;extractddrelev=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, avgtyp, info.ddr_struct.ddr[9,*,*], /min, /max)
-        
-        extractddrlat=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, avgtyp2, csi_ddr[3,*,*])
-        extractddrlon=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, avgtyp, csi_ddr[4,*,*])
-        extractddrelev=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, avgtyp, csi_ddr[9,*,*], /min, /max)       
+        extractddrlat=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, 'mean', image_struct, csi_ddr[3,*,*])
+        extractddrlon=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, 'mean', image_struct, csi_ddr[4,*,*])
+        extractddrelev=csi_extract_spectra(ONinfo, OFFinfo, ROIrow, ROIcol, 0, 'mean', image_struct, csi_ddr[9,*,*], /min, /max)       
          
         ddrlatextractddrlat=*extractddrlat
         ddrlonextractddrlon=*extractddrlon
@@ -603,33 +597,92 @@ print, 'event'
         
         ;...................................................................
         ;Set the dominant phase color
+        ;...................................................................
+        ; Set the dominant phase color
         if n_elements(sublibindex) gt 1 then begin
-  ;        prioritybase=widget_auto_base(title='Set Color Priority')
-  ;        priorityset1=widget_pmenu(prioritybase, prompt='Spectrally-dominant phase:   ', list=names, uvalue='prior1', /auto, xsize=400, default=0)
-  ;        priorityset2=widget_pmenu(prioritybase, prompt='Secondary phase:   ', list=names, uvalue='prior2', /auto, xsize=400, default=1)
-          
+
+          ; default choices in case the user cancels
+          dominant = names[0]
+          secondary = names[1]
+
           WIDGET_CONTROL, ev.top, map=0
-          
-          priorresult=auto_wid_mng(prioritybase)
-          
-          if (priorresult.accept eq 1) then begin
-            dominant=names[priorresult.prior1]
-            secondary=names[priorresult.prior2]
-          endif
+          csi_pick_phase_priority, names, dominant, secondary, accepted=accept, group_leader=ev.top
           WIDGET_CONTROL, ev.top, map=1
-          colindex=where(dominant eq info.MICA_data.names)
-          colindex2=where(secondary eq info.MICA_data.names)
-          d1.color=' '+strtrim(string(long(info.colorindex[colindex,0])),1)+' '+strtrim(string(long(info.colorindex[colindex,1])),1)+' '+strtrim(string(long(info.colorindex[colindex,2])),1)
-          d1.colorline=' '+strtrim(string(long(info.colorindex[colindex2,0])),1)+' '+strtrim(string(long(info.colorindex[colindex2,1])),1)+' '+strtrim(string(long(info.colorindex[colindex2,2])),1)
+
+          if accept eq 1 then begin
+            colindex = where(dominant eq info.MICA_data.names)
+            colindex2 = where(secondary eq info.MICA_data.names)
+
+            d1.color = ' ' + strtrim(string(long(info.colorindex[colindex,0])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex,1])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex,2])),1)
+
+            d1.colorline = ' ' + strtrim(string(long(info.colorindex[colindex2,0])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex2,1])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex2,2])),1)
+          endif else begin
+            ; user cancelled: keep the defaults
+            colindex = where(dominant eq info.MICA_data.names)
+            colindex2 = where(secondary eq info.MICA_data.names)
+
+            d1.color = ' ' + strtrim(string(long(info.colorindex[colindex,0])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex,1])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex,2])),1)
+
+            d1.colorline = ' ' + strtrim(string(long(info.colorindex[colindex2,0])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex2,1])),1) + $
+              ' ' + strtrim(string(long(info.colorindex[colindex2,2])),1)
+          endelse
+
         endif else begin
-          if  n_elements(sublibindex) gt 0 then begin
-            d1.color=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,2])),1)
-            d1.colorline=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,2])),1)
+          if n_elements(sublibindex) gt 0 then begin
+            d1.color=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+$
+              strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+$
+              strtrim(string(long(info.colorindex[sublibindex,2])),1)
+            d1.colorline=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+$
+              strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+$
+              strtrim(string(long(info.colorindex[sublibindex,2])),1)
           endif else begin
             d1.color=' 0 0 0'
             d1.colorline=' 0 0 0'
           endelse
         endelse
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    ;    if n_elements(sublibindex) gt 1 then begin
+    ;      prioritybase=widget_auto_base(title='Set Color Priority')
+    ;      priorityset1=widget_pmenu(prioritybase, prompt='Spectrally-dominant phase:   ', list=names, uvalue='prior1', /auto, xsize=400, default=0)
+    ;      priorityset2=widget_pmenu(prioritybase, prompt='Secondary phase:   ', list=names, uvalue='prior2', /auto, xsize=400, default=1)
+    ;      
+    ;      WIDGET_CONTROL, ev.top, map=0
+    ;      
+    ;      priorresult=auto_wid_mng(prioritybase)
+    ;      
+    ;      if (priorresult.accept eq 1) then begin
+    ;        dominant=names[priorresult.prior1]
+    ;        secondary=names[priorresult.prior2]
+    ;      endif
+    ;      WIDGET_CONTROL, ev.top, map=1
+    ;      colindex=where(dominant eq info.MICA_data.names)
+    ;      colindex2=where(secondary eq info.MICA_data.names)
+    ;      d1.color=' '+strtrim(string(long(info.colorindex[colindex,0])),1)+' '+strtrim(string(long(info.colorindex[colindex,1])),1)+' '+strtrim(string(long(info.colorindex[colindex,2])),1)
+    ;      d1.colorline=' '+strtrim(string(long(info.colorindex[colindex2,0])),1)+' '+strtrim(string(long(info.colorindex[colindex2,1])),1)+' '+strtrim(string(long(info.colorindex[colindex2,2])),1)
+    ;    endif else begin
+    ;      if  n_elements(sublibindex) gt 0 then begin
+    ;        d1.color=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,2])),1)
+    ;        d1.colorline=' '+strtrim(string(long(info.colorindex[sublibindex,0])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,1])),1)+' '+strtrim(string(long(info.colorindex[sublibindex,2])),1)
+    ;      endif else begin
+    ;        d1.color=' 0 0 0'
+    ;        d1.colorline=' 0 0 0'
+    ;      endelse
+    ;    endelse
         
         ;...................................................................
         if (numset-1 eq 0.) then begin  ;check for first time around
@@ -759,7 +812,7 @@ print, 'event'
     if isit eq 'infobut' then begin
       Rbrws=info.brzp
       Rbrws=where(browse_struct.browse_names eq Rbrws)
-      browse_text = csi_browse_text(100, browse_selected=browse_selected, browse_names=browse_struct.browse_names)
+      browse_text = csi_browse_text(100, browse_selected=Rbrws, browse_names=browse_struct.browse_names)
       brztext=dialog_message(browse_text, /information, title=browse_struct.browse_names(Rbrws)+' browse product help info...', /center)
     endif
     

@@ -2,10 +2,10 @@
 ;Returns appropriate wavetable for class type (e.g., MSP, HSP, FRT/HRL/FRS/HRS) and whether it is S, L, or J data.
 ;This is the SUBSET wavetable, using the downselect eventually chosen for the MTRDRs.
 
-function csi_determine_wavetable, class_type ;, sensor
-wvt_modes_S_file='/project/crism/users/viviace1/crismidl/CSI_program/CRISM_S_wavetable.txt'
-wvt_modes_L_file='/project/crism/users/viviace1/crismidl/CSI_program/CRISM_L_wavetable.txt'
-wvt_mtrdr_file='/project/crism/users/viviace1/crismidl/CSI_program/CRISM_J_wavetable.txt'
+function csi_determine_wavetable, class_type, home_dir ;, sensor
+wvt_modes_S_file=home_dir+'CSI_ancillary/CRISM_S_wavetable.txt'
+wvt_modes_L_file=home_dir+'CSI_ancillary/CRISM_L_wavetable.txt'
+wvt_mtrdr_file=home_dir+'CSI_ancillary/CRISM_J_wavetable.txt'
 
 wvt_modes_S=read_ascii(wvt_modes_S_file, data_start=1)
 wvt_modes_L=read_ascii(wvt_modes_L_file, data_start=1)

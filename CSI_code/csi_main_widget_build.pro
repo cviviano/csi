@@ -35,35 +35,31 @@ InnerBase=widget_base(OuterBase, col=1)
     subbase=widget_base(superbase, column=1, /align_center)
     
     baseROI=widget_base(subbase, col=1, /align_center); ROI SECTION
-      RGBlabel=widget_label(baseROI, value=' ')
-      RGBlabel=widget_label(baseROI, value=' ')
+    ;  RGBlabel=widget_label(baseROI, value=' ')
+    ;  RGBlabel=widget_label(baseROI, value=' ')
       ROIlabel=widget_label(baseROI, value='*** REGION OF INTEREST SETTINGS ***', /align_center)
     
     tab1=widget_tab(baseROI) ; SET THE ROI DIMENSIONS, AVERAGING, AND ALIGNMENT****************************
-            oddonly=string(round((2*findgen(25)+1)))
-      tabROIsize=widget_base(tab1, row=2, frame=1, title='Size')
-           ROIr=widget_droplist(tabROIsize, title='Set ROI # of rows:   ', value=oddonly)
-          ; ROIr=widget_slider(tabROIsize, title='Set ROI # of rows:   ', value=5, minimum=1, maximum=101, scroll=2)
-         ;  ROIr=widget_text(tabROIsize, value='5', uvalue='roi_r_size', xsize=5, /editable)
-         ;  ROIr=cw_field(tabROIsize, title='Set ROI # of rows:   ', value=5, uvalue='roi_r_size', xsize=5, /integer, /return_events)
-           ROIc=widget_droplist(tabROIsize, title='Set ROI # of columns:', value=oddonly)
-         ;  ROIc=cw_field(tabROIsize, title='Set ROI # of columns:', value=5, uvalue='roi_c_size', xsize=5, /integer, /return_events)
-
-      tabROIavg=widget_base(tab1, row=1, frame=1, title='Averaging')
-           avgbutton=widget_base(tabROIavg, row=2, /align_center)
-           blnkbase=widget_base(avgbutton)
-           blnklabel=widget_label(blnkbase, value=' ')
-           buttonbase2=widget_base(avgbutton, /exclusive, row=1)
+            oddonly=strtrim(string(round((2*findgen(25)+1))),1)
+      tabGEOM=widget_base(tab1, row=3, frame=1, title='Geometry')
+           ROIbase=widget_base(tabGEOM, row=2)
+           ROIr=widget_droplist(ROIbase, title='Set ROI # of rows:   ', value=oddonly)
+           ROIc=widget_droplist(ROIbase, title='Set ROI # of columns:', value=oddonly)
+   ;   tabROIavg=widget_base(tab1, row=1, frame=1, title='Averaging')
+           avgbutton=widget_base(tabGEOM, row=1, /align_center)
+           blnkbase=widget_base(avgbutton, row=1)
+           blnklabel=widget_label(blnkbase, value='Averaging:')
+           buttonbase2=widget_base(blnkbase, /exclusive, row=1)
            avgtypmean= widget_button(buttonbase2, value='Mean')
            avgtypmed= widget_button(buttonbase2, value='Median')
-      tabROIalign=widget_base(tab1, row=3, frame=1, title='Alignment')    
-           lbl=widget_label(tabROIalign, value='Force denominator ROI to align')
-           lbl=widget_label(tabROIalign, value='(column) with numerator?:')
-            alignbutton=widget_base(tabROIalign, row=1, /exclusive, /align_center)  
+   ;   tabROIalign=widget_base(tab1, row=3, frame=1, title='Alignment')    
+           alnbase=widget_base(tabGEOM, row=3, /align_center)
+           lbl=widget_label(alnbase, value='Force denominator ROI to align')
+           lbl=widget_label(alnbase, value='(column) with numerator?:')
+            alignbutton=widget_base(alnbase, row=1, /exclusive, /align_center)  
                 colseton = widget_button(alignbutton, uvalue='alignon', value='On')
                 colsetoff = widget_button(alignbutton, uvalue='alignoff', value='Off')      
-              
-    ROIloc=widget_base(baseROI, row=4, frame=1,  space=-2, units=0) ; SET THE ROI ROW AND COLUMN***********
+       ROIloc=widget_base(tab1, row=4, frame=1,  space=-2, units=0, title='Placement') ; SET THE ROI ROW AND COLUMN***********
           tabROIloc2=widget_base(ROIloc, row=4, space=-2, units=0, /align_right)
             subwidbase1=widget_base(tabROIloc2, row=1, space=-2, units=0)
               textlb=widget_label(subwidbase1, value='                 row   column', /align_right, ysize=9)
@@ -79,15 +75,14 @@ InnerBase=widget_base(OuterBase, col=1)
               roi_dcolwid=widget_text(subtxt, uvalue='dcolwid', xsize=5, /editable)  
             subwidbase4=widget_base(tabROIloc2, row=1, space=0, units=0, /align_right)                 
               applyrowcol_button=widget_button(subwidbase4, value=' Apply ', uvalue='setrowcol', frame=1, /align_right)  
-            
-    ROIdisp=widget_base(baseROI, row=2, frame=1) ; DISPLAY ROI ON IMAGES************************************
+       ROIdisp=widget_base(tab1, row=2, frame=1, title='Display') ; DISPLAY ROI ON IMAGES************************************
            text_disp=widget_label(ROIdisp, value='Display saved ROIs?:    ', /align_right)
            dispbutton=widget_base(ROIdisp, row=1, /exclusive, /align_center)
            dispseton = widget_button(dispbutton, uvalue='disproion', value='On')
            dispsetoff = widget_button(dispbutton, uvalue='disproioff', value='Off')       
               
     baseRGB=widget_base(subbase, col=1, /align_center) ; IMAGE RGB SECTION**********************************
-          RGBlabel=widget_label(baseRGB, value=' ', /align_center)
+        ;  RGBlabel=widget_label(baseRGB, value=' ', /align_center)
           RGBlabel=widget_label(baseRGB, value=' ', /align_center)
           RGBlabel=widget_label(baseRGB, value='**** IMAGE COMPOSITE SETTINGS ****', /align_center)
       
@@ -117,10 +112,13 @@ InnerBase=widget_base(OuterBase, col=1)
                       bpct = widget_droplist(tabRGBbase4, uvalue='rstretch', title='   B:', value=pctsz)
      
       baseplotset=widget_base(subbase, col=1, /align_center) ; PLOT SETTING SECTION****************************
-            blklabel=widget_label(baseplotset, value=' ', /align_center)
+        ;    blklabel=widget_label(baseplotset, value=' ', /align_center)
             blklabel=widget_label(baseplotset, value=' ', /align_center)
             ROIlabel=widget_label(baseplotset, value='********** PLOT SETTINGS **********', /align_center)
-            plotbaseopt=widget_base(baseplotset, row=2)
+            
+            tab2=widget_tab(baseplotset)
+            plotrangebase=widget_base(tab2, title='Plot range', col=1)
+        ;    plotbaseopt=widget_base(plotrangebase, row=2)
             if (image_struct.file_type eq 2) or (image_struct.file_type eq 3) then begin
               sensitiveS=1
               sensitiveL=1
@@ -136,12 +134,8 @@ InnerBase=widget_base(OuterBase, col=1)
               sensitiveL=1
               sensitiveJ=0
             endif
-            offsetc1=widget_base(plotbaseopt, row=2, frame=1, sensitive=sensitiveJ)
-            lbl=widget_label(offsetc1, value='1-MICRON OFFSET CORRECTION?:     ', /align_left)
-            buttons=widget_base(offsetc1, row=1, /exclusive, /align_center)
-            offsetcorron = widget_button(buttons, value='Yes')
-            offsetcorroff = widget_button(buttons, value='No')
-            offsetc3=widget_base(plotbaseopt, row=2, frame=1)
+            
+            offsetc3=widget_base(plotrangebase, row=2, frame=1)
             lbl=widget_label(offsetc3, value='PLOT RANGE:                      ', /align_left)
             rangebutton=widget_base(offsetc3, col=1, /exclusive, /align_center)
             joined= widget_button(rangebutton, value='All wavelengths')
@@ -149,7 +143,13 @@ InnerBase=widget_base(OuterBase, col=1)
             vis= widget_button(rangebutton, value='VIS', sensitive=sensitiveS)
             ir= widget_button(rangebutton, value='SWIR', sensitive=sensitiveL)
             irzoom= widget_button(rangebutton, value='1.8-2.6 microns', sensitive=(sensitiveL or sensitiveJ))
-     
+            
+            offsetc1=widget_base(tab2, row=2, frame=1, sensitive=sensitiveJ, title='Correction')
+            lbl=widget_label(offsetc1, value='1-MICRON OFFSET CORRECTION?:     ', /align_left)
+            buttons=widget_base(offsetc1, row=1, /exclusive, /align_center)
+            offsetcorron = widget_button(buttons, value='Yes')
+            offsetcorroff = widget_button(buttons, value='No')     
+            
       extractbase=widget_base(subbase, col=1, /align_center) ; BUTTON TO EXTRACT SPECTRA*************************
       extractbutton=widget_button(extractbase, value=' Data Extraction ', uvalue='extract', frame=5)  
      
@@ -207,27 +207,27 @@ InnerBase=widget_base(OuterBase, col=1)
         pbase1=widget_base(tab, title=' Extracted Spectra ', col=1, frame=1)
           lbl=widget_label(pbase1, value='Extracted Spectra ("on" and "off")', /align_center)
           plotimg1=widget_draw(pbase1, frame=1, XSIZE=plotsize*1.2, ysize=plotsize, retain=2);, /button_events)
-          plotout=widget_button(pbase1, value='Plot CRISM Spectra in ENVI Plot Window', uvalue='plot', frame=2, /align_center)
+      ;    plotout=widget_button(pbase1, value='Plot CRISM Spectra in ENVI Plot Window', uvalue='plot', frame=2, /align_center)
         pbase2=widget_base(tab, title=' Ratioed Spectra ', col=1, frame=1)
           lbl=widget_label(pbase2, value='Ratioed Spectra (= on / off)', /align_center)
           plotimg2=widget_draw(pbase2, frame=1, XSIZE=plotsize*1.2, ysize=plotsize, retain=2);, /button_events)
-          plotout=widget_button(pbase2, value='Plot CRISM Spectra in ENVI Plot Window', uvalue='plot', frame=2, /align_center)            
+       ;   plotout=widget_button(pbase2, value='Plot CRISM Spectra in ENVI Plot Window', uvalue='plot', frame=2, /align_center)            
           
       tab2=widget_tab(plotbase1)
         pbase3=widget_base(tab2, title=' Compare: CRISM MICA Spectra ', col=1, frame=1)   
           lbl=widget_label(pbase3, value='CRISM MICA Type Spectra & Ratioed CRISM Spectra')
           plotimg3=widget_draw(pbase3, frame=1, XSIZE=plotsize*1.2, ysize=plotsize, retain=2);, /button_events)
-          plotoutlib=widget_button(pbase3, value='Plot Lab and MICA Spectra in ENVI Plot Window', uvalue='libplot', frame=2, /align_center)
+      ;    plotoutlib=widget_button(pbase3, value='Plot Lab and MICA Spectra in ENVI Plot Window', uvalue='libplot', frame=2, /align_center)
         pbase4=widget_base(tab2, title=' Compare: Lab Spectra ', col=1, frame=1)  
           lbl=widget_label(pbase4, value='Lab MICA Spectra and Ratioed CRISM Spectra')
           plotimg4=widget_draw(pbase4, frame=1, XSIZE=plotsize*1.2, ysize=plotsize, retain=2);, /button_events)
-          plotoutlib=widget_button(pbase4, value='Plot Lab and MICA Spectra in ENVI Plot Window', uvalue='libplot', frame=2, /align_center)       
+      ;    plotoutlib=widget_button(pbase4, value='Plot Lab and MICA Spectra in ENVI Plot Window', uvalue='libplot', frame=2, /align_center)       
       
-       MainMMbase=widget_base(plotbaseBIG, col=1, /align_center)
+       MainMMbase=widget_base(plotbaseBIG, col=1)
        MMtab=widget_tab(MainMMbase)
-       MMbase=widget_base(MMtab, Title='Spectral Analysis', /col, /align_center)
+       MMbase=widget_base(MMtab, Title='Spectral Analysis', /col) ;row=3)
        label=widget_label(MMbase, value='*Resampled Lab spectra and MICA type spectra*')
-       mbase=widget_base(MMbase, col=4, frame=1);,  /nonexclusive) 
+       mbase=widget_base(MMbase, frame=1, col=1);, frame=1, xsize=300);,  /nonexclusive) 
 
    
      
@@ -244,10 +244,10 @@ for i=0, n_elements(MICA_data.names)-1 do begin
   mica_color_table[*,*,2,i]=(colorindex[i,*])[2]
 endfor 
 
-      col1=widget_base(mbase,/col, frame=0)
-           
-        label=widget_label(col1, value='Fe-oxides & Primary')
-        label=widget_label(col1, value='Silicates')
+      mineral_tab=widget_tab(mbase, multiline=3, location=2)
+      col1=widget_base(mineral_tab, Title='Oxides/Primary Silicates')
+   ;     label=widget_label(col1, value='Fe-oxides & Primary')
+   ;     label=widget_label(col1, value='Silicates')
         obase=widget_base(col1, frame=1, col=2)
         base1=widget_base(obase, col=1, /nonexclusive)     
         base2=widget_base(obase, row=6, /align_center)     
@@ -264,8 +264,8 @@ endfor
             hcp=widget_button(base1, value=mica_color_table[*,*,*,5])   
             label=widget_label(base2, value=MICA_data.names[5], ysize=bb)
         
-        col2=widget_base(mbase,/col, frame=0)  
-        label=widget_label(col2, value='Sulfates')
+        col2=widget_base(mineral_tab,/col, frame=0, title='Sulfates')  
+      ;  label=widget_label(col2, value='Sulfates')
         obase=widget_base(col2, frame=1, col=2)
         base1=widget_base(obase, col=1, /nonexclusive)     
         base2=widget_base(obase, row=7, /align_center)                   
@@ -284,8 +284,8 @@ endfor
             bassanite=widget_button(base1, value=mica_color_table[*,*,*,14])
             label=widget_label(base2, value=MICA_data.names[14], ysize=bb)
             
-        col3=widget_base(mbase,/col, frame=0)  
-        label=widget_label(col3, value='Phyllosilicates')
+        col3=widget_base(mineral_tab,/col, frame=0, title='Phyllosilicates')  
+     ;   label=widget_label(col3, value='Phyllosilicates')
         obase=widget_base(col3, frame=1, col=2)
         base1=widget_base(obase, col=1, /nonexclusive) 
         base2=widget_base(obase, row=10, /align_center)  
@@ -310,8 +310,8 @@ endfor
             prehnite=widget_button(base1, value=mica_color_table[*,*,*,24])  
             label=widget_label(base2, value=MICA_data.names[24], ysize=bb)  
             
-        col4=widget_base(mbase,/col, frame=0)   
-        label=widget_label(col4, value='Carbonates')
+        col4=widget_base(mineral_tab,/col, frame=0, title='Carbonates')   
+    ;    label=widget_label(col4, value='Carbonates')
         obase=widget_base(col4, frame=1, col=2)
         base1=widget_base(obase, col=1, /nonexclusive)     
         base2=widget_base(obase, row=2, /align_center)  
@@ -320,8 +320,9 @@ endfor
             fe_ca_carbonate=widget_button(base1, value=mica_color_table[*,*,*,26])
             label=widget_label(base2, value=MICA_data.names[26], ysize=bb) 
           
-        label=widget_label(col4, value='Other')
-        obase=widget_base(col4, frame=1, col=2)
+      ;  label=widget_label(col4, value='Other')
+        col5=widget_base(mineral_tab,/col, frame=0, title='Other')
+        obase=widget_base(col5, frame=1, col=2)
         base1=widget_base(obase, col=1, /nonexclusive)     
         base2=widget_base(obase, row=4, /align_center)          
             hydrated_silica=widget_button(base1, value=mica_color_table[*,*,*,27])
@@ -333,8 +334,10 @@ endfor
             chloride=widget_button(base1, value=mica_color_table[*,*,*,30])
             label=widget_label(base2, value=MICA_data.names[30], ysize=bb)    
             
-         label=widget_label(col4, value='Ices')
-         obase=widget_base(col4, frame=1, col=2)
+         
+        ; label=widget_label(col4, value='Ices')
+         col6=widget_base(mineral_tab,/col, frame=0, title='Ices')
+         obase=widget_base(col6, frame=1, col=2)
          base1=widget_base(obase, col=1, /nonexclusive)
          base2=widget_base(obase, row=2, /align_center)
             h2o_ice=widget_button(base1, value=mica_color_table[*,*,*,6])
@@ -355,24 +358,45 @@ endfor
       MMmorph=widget_base(MMtab, Title='Morphology', /col) 
       label=widget_label(MMmorph, value='*Morphologic characteristics of location*')
        morphbase=widget_base(MMmorph, col=4, frame=1)
-       
-    col1=widget_base(morphbase,/col, frame=0)
-       
-          label=widget_label(col1, value='ALBEDO')                      
+    
+    morph_tab=widget_tab(morphbase, multiline=3, location=2)
+
+    ; col4=widget_base(morphbase,/col, frame=0)
+    col5=widget_base(morph_tab, Title='VOLCANIC')
+    ;   label=widget_label(col4, value='VOLCANIC')
+    volcanic=widget_base(col5, row=4, /nonexclusive, frame=1, xsize=cc)
+    caldera=widget_button(volcanic, value=morphnames[25])
+    cone=widget_button(volcanic, value=morphnames[26])
+    flow=widget_button(volcanic, value=morphnames[27])
+    ridge=widget_button(volcanic, value=morphnames[28])
+
+    col6=widget_base(morph_tab, Title='STRUCTURAL')
+    ;   label=widget_label(col4, value='STRUCTURAL')
+    structural=widget_base(col6, row=4, /nonexclusive, frame=1, xsize=cc)
+    wrinkle_ridge=widget_button(structural, value=morphnames[13])
+    scarp=widget_button(structural, value=morphnames[14])
+    fractured=widget_button(structural, value=morphnames[15])
+    dike=widget_button(structural, value=morphnames[16])
+
+    col2=widget_base(morph_tab, Title='EXPOSURE')
+    ;  label=widget_label(col1, value='EXPOSURE')
+    exposure=widget_base(col2, row=3, /nonexclusive, frame=1, xsize=cc)
+    massive=widget_button(exposure, value=morphnames[3])
+    layered=widget_button(exposure, value=morphnames[4])
+    unconsolidated=widget_button(exposure, value=morphnames[5])
+
+       col1=widget_base(morph_tab, Title='ALBEDO')   
+  ;  col1=widget_base(morphbase,/col, frame=0)       
+  ;        label=widget_label(col1, value='ALBEDO')                      
        albedo=widget_base(col1, row=3, /nonexclusive, frame=1, xsize=cc)
           bright=widget_button(albedo, value=morphnames[0]) 
           intermed=widget_button(albedo, value=morphnames[1])               
           dark=widget_button(albedo, value=morphnames[2]) 
           
-          label=widget_label(col1, value='EXPOSURE')            
-         exposure=widget_base(col1, row=3, /nonexclusive, frame=1, xsize=cc)                           
-          massive=widget_button(exposure, value=morphnames[3])
-          layered=widget_button(exposure, value=morphnames[4])
-          unconsolidated=widget_button(exposure, value=morphnames[5])
-          
-    col2=widget_base(morphbase,/col, frame=0)
-          label=widget_label(col2, value='CRATER')
-          crater=widget_base(col2, row=7, /nonexclusive, frame=1, xsize=cc)
+  ;  col2=widget_base(morphbase,/col, frame=0)
+       col3=widget_base(morph_tab, Title='CRATER')
+        ;  label=widget_label(col2, value='CRATER')
+          crater=widget_base(col3, row=7, /nonexclusive, frame=1, xsize=cc)
           rim=widget_button(crater, value=morphnames[6])
           floor=widget_button(crater, value=morphnames[7])
           central_peak=widget_button(crater, value=morphnames[8])
@@ -381,11 +405,11 @@ endfor
           ejecta=widget_button(crater, value=morphnames[11])
           pedestal=widget_button(crater, value=morphnames[12])
                    
-    col3=widget_base(morphbase,/col, frame=0)
-
-          label=widget_label(col3, value='EROSION &')
-          label=widget_label(col3, value='DEPOSITION')
-         eroanddep=widget_base(col3, row=8, /nonexclusive, frame=1, xsize=cc) 
+   ; col3=widget_base(morphbase,/col, frame=0)
+     col4=widget_base(morph_tab, Title='EROSION & DEPOSITION')
+       ;   label=widget_label(col3, value='EROSION &')
+        ;  label=widget_label(col3, value='DEPOSITION')
+         eroanddep=widget_base(col4, row=8, /nonexclusive, frame=1, xsize=cc) 
           channel=widget_button(eroanddep, value=morphnames[17])
           gully=widget_button(eroanddep, value=morphnames[18])
           fan_delta=widget_button(eroanddep, value=morphnames[19])
@@ -395,21 +419,6 @@ endfor
           debris_apron=widget_button(eroanddep, value=morphnames[23])
           dune=widget_button(eroanddep, value=morphnames[24])
 
-    col4=widget_base(morphbase,/col, frame=0)
-    
-          label=widget_label(col4, value='VOLCANIC')
-         volcanic=widget_base(col4, row=4, /nonexclusive, frame=1, xsize=cc) 
-          caldera=widget_button(volcanic, value=morphnames[25])
-          cone=widget_button(volcanic, value=morphnames[26])
-          flow=widget_button(volcanic, value=morphnames[27])
-          ridge=widget_button(volcanic, value=morphnames[28])
-          
-          label=widget_label(col4, value='STRUCTURAL')
-          structural=widget_base(col4, row=4, /nonexclusive, frame=1, xsize=cc)
-          wrinkle_ridge=widget_button(structural, value=morphnames[13])
-          scarp=widget_button(structural, value=morphnames[14])
-          fractured=widget_button(structural, value=morphnames[15])
-          dike=widget_button(structural, value=morphnames[16])
        
        clear=widget_button(MMmorph, value='Deselect All', uvalue='mclear', xsize=5, frame=2)    
        
@@ -424,7 +433,7 @@ endfor
           z=30
            colwid=[z, 3*z, 5*z, 5*z, 3*z, 2*z, 2*z, 2*z, z, z, 2*z, 2*z] 
        collabels=tag_names(d0)
-      stop          
+                
   superbase2=widget_base(tabbase, title='CSI: Data Extraction and Storage', frame=1, /column, XSIZE=((screensize[0])/1.2)+400)    
   
     table1 = widget_table(superbase2, VALUE=d0, /ROW_MAJOR, ROW_LABELS='', COLUMN_LABELS=collabels, /RESIZEABLE_COLUMNS, COLUMN_WIDTHS=colwid, $
@@ -582,7 +591,7 @@ endif
           alignset:'', $
           disproiset:'',$
           specton:filler, spectoff:filler, $
-          plotout:plotout, $
+     ;     plotout:plotout, $
           table1:table1,$
           extractset:'',$
           num:0L,$

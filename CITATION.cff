@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use CSI in your research, please cite the software using the metadata below."
+title: "CSI: CRISM Spectral Interrogator"
+type: software
+authors:
+  - family-names: "Viviano"
+    given-names: "Christina E."
+    orcid: "https://orcid.org/0000-0003-1601-2105"
+  - family-names: "Seelos"
+    given-names: "Frank P."
+    orcid: "https://orcid.org/0000-0001-9721-941X"
+version: "1.0.0"
+doi: "10.5281/zenodo.21892952"
+date-released: "2026-08-11"
+repository-code: "https://github.com/cviviano/csi"
+url: "https://github.com/cviviano/csi"
+keywords:
+  - "CRISM"
+  - "Mars"
+  - "spectroscopy"
+  - "imaging spectroscopy"
+  - "remote sensing"
+  - "planetary science"
+  - "IDL"
+abstract: >-
+  CSI (CRISM Spectral Interrogator) is an IDL-based graphical tool for
+  visualization, spectral analysis, interpretation, and documentation of
+  Compact Reconnaissance Imaging Spectrometer for Mars (CRISM) data. CSI
+  supports region-of-interest definition, spectral extraction and ratioing,
+  comparison with MICA and laboratory reference spectra, and export of
+  interpreted locations for use in external mapping and GIS applications.

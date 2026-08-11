@@ -1,1 +1,2 @@
-ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABHS88IsFAPyV4DijxudBT3F+tGgJCPiycvRY5r+h8ylr48l+f5gxUc6dkdqHkoauoPs2RSsFsgUO6I4HoUr8BVTwHqjVjbQPzCkiZcmY/KQpBRFvlVsWTVP28PTNQlO10ECNzjnxUlLthdytYH5m1Sl6M83AL6idYz9YVxr/ek2wmbGw== cviviano@gmail.com
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA2JarSZywC1O+5NKhcK+orFuRguPnAK4XOn89++7ps0 cviviano@gmail.com
+

@@ -1,4 +1,5 @@
-<img width="1254" height="1254" alt="CSI_logo" src="https://github.com/user-attachments/assets/d29badd7-4266-40f0-a0b5-40a502439604" />
+<img width="300" height="300" alt="CSI_logo" src="https://github.com/user-attachments/assets/d29badd7-4266-40f0-a0b5-40a502439604" />
+
 # CSI: CRISM Spectral Interrogator
 
 CSI (CRISM Spectral Interrogator) is an IDL-based graphical tool for efficient, reproducible analysis of Compact Reconnaissance Imaging Spectrometer for Mars (CRISM) data. CSI brings image visualization, region-of-interest (ROI) selection, spectral extraction and ratioing, comparison with reference spectra, interpretation, and documentation into a single workflow.
